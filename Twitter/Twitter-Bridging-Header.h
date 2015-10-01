@@ -3,3 +3,6 @@
 //
 
 #import "BDBOAuth1RequestOperationManager.h"
+#import "NSDictionary+BDBOAuth1Manager.h"
+#import "UIImageView+AFNetworking.h"
+#import "AFNetworking.h"

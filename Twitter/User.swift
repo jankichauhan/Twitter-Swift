@@ -17,7 +17,7 @@ class User: NSObject {
     
     var name: String?
     var screenName: String?
-    var profileUrl: String?
+    var profileUrl: NSURL?
     var tagLine: String?
     var dictionary: NSDictionary?
     
@@ -26,7 +26,12 @@ class User: NSObject {
         self.dictionary = dictionary
         name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
-        profileUrl = dictionary["profile_image_url"] as? String
+        let imageURLString = dictionary["profile_image_url"] as? String
+        if imageURLString != nil {
+            profileUrl = NSURL(string: imageURLString!)!
+        } else {
+            profileUrl = nil
+        }
         tagLine = dictionary["description"] as? String
     }
    
@@ -38,6 +43,7 @@ class User: NSObject {
         NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
         
     }
+        
     class var currentUser:User? {
         get {
         
