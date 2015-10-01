@@ -100,7 +100,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Favorite" translatesAutoresizingMaskIntoConstraints="NO" id="L4S-By-HQI">
                                                     <rect key="frame" x="197" y="92" width="11" height="16"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="11" id="4qJ-E2-WfM"/>
+                                                        <constraint firstAttribute="width" constant="16" id="4qJ-E2-WfM"/>
                                                         <constraint firstAttribute="height" constant="16" id="q3N-XI-rmJ"/>
                                                     </constraints>
                                                 </imageView>
@@ -131,7 +131,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="I have seen future of newspaper https://cupspoonandspatula.com " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="Qg4-Kp-qX3">
                                                     <rect key="frame" x="62" y="42" width="240" height="39"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="39" id="6yd-7V-BcE"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="6yd-7V-BcE"/>
                                                         <constraint firstAttribute="width" constant="240" id="bF1-Hw-S23"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -144,12 +144,12 @@
                                                 <constraint firstAttribute="bottom" secondItem="B2N-5u-IDA" secondAttribute="bottom" constant="14" id="3F4-6U-wE2"/>
                                                 <constraint firstItem="OIe-jE-50d" firstAttribute="leading" secondItem="OYP-eT-Tsm" secondAttribute="trailing" constant="50" id="4sk-Fn-73b"/>
                                                 <constraint firstAttribute="bottom" secondItem="OIe-jE-50d" secondAttribute="bottom" constant="15" id="9ZG-tn-UR1"/>
-                                                <constraint firstItem="L4S-By-HQI" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="10" id="9kF-7g-ABh"/>
+                                                <constraint firstItem="L4S-By-HQI" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="6" id="9kF-7g-ABh"/>
                                                 <constraint firstItem="GhY-z1-EBA" firstAttribute="leading" secondItem="PK5-5v-Uff" secondAttribute="leading" id="A4c-gV-hzp"/>
                                                 <constraint firstItem="OYP-eT-Tsm" firstAttribute="leading" secondItem="BK7-aj-6fu" secondAttribute="leading" constant="62" id="ART-at-FfW"/>
                                                 <constraint firstItem="cCz-RC-fP4" firstAttribute="leading" secondItem="OIe-jE-50d" secondAttribute="trailing" constant="5" id="E9u-Tz-bgX"/>
-                                                <constraint firstItem="cCz-RC-fP4" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="10" id="FXJ-hs-2NU"/>
-                                                <constraint firstItem="OIe-jE-50d" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="10" id="JcH-aG-aaJ"/>
+                                                <constraint firstItem="cCz-RC-fP4" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="6" id="FXJ-hs-2NU"/>
+                                                <constraint firstItem="OIe-jE-50d" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="6" id="JcH-aG-aaJ"/>
                                                 <constraint firstItem="OYP-eT-Tsm" firstAttribute="bottom" secondItem="OIe-jE-50d" secondAttribute="bottom" id="Kt3-tr-upb"/>
                                                 <constraint firstItem="aBO-x0-zaY" firstAttribute="leading" secondItem="BK7-aj-6fu" secondAttribute="leading" constant="8" id="Kzu-nT-dtR"/>
                                                 <constraint firstItem="GhY-z1-EBA" firstAttribute="leading" secondItem="Qg4-Kp-qX3" secondAttribute="leading" id="Lt5-7b-YxR"/>
@@ -163,11 +163,11 @@
                                                 <constraint firstItem="Qg4-Kp-qX3" firstAttribute="leading" secondItem="aBO-x0-zaY" secondAttribute="trailing" constant="7" id="aUD-5V-rbV"/>
                                                 <constraint firstItem="OYP-eT-Tsm" firstAttribute="bottom" secondItem="L4S-By-HQI" secondAttribute="bottom" id="bsr-9y-zzn"/>
                                                 <constraint firstItem="GhY-z1-EBA" firstAttribute="top" secondItem="BK7-aj-6fu" secondAttribute="top" constant="8" id="ePN-lm-RQX"/>
-                                                <constraint firstItem="B2N-5u-IDA" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="15" id="eW6-cB-DiL"/>
+                                                <constraint firstItem="B2N-5u-IDA" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="6" id="eW6-cB-DiL"/>
                                                 <constraint firstItem="GhY-z1-EBA" firstAttribute="leading" secondItem="aBO-x0-zaY" secondAttribute="trailing" constant="7" id="fqp-xq-4cr"/>
                                                 <constraint firstAttribute="trailing" secondItem="B2N-5u-IDA" secondAttribute="trailing" constant="62" id="gbB-bp-llq"/>
                                                 <constraint firstAttribute="bottom" secondItem="cCz-RC-fP4" secondAttribute="bottom" constant="14" id="hqW-yh-uQc"/>
-                                                <constraint firstItem="OYP-eT-Tsm" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="10" id="icc-Xx-j0V"/>
+                                                <constraint firstItem="OYP-eT-Tsm" firstAttribute="top" secondItem="Qg4-Kp-qX3" secondAttribute="bottom" constant="6" id="icc-Xx-j0V"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aBO-x0-zaY" secondAttribute="bottom" constant="20" id="jwP-SL-lSA"/>
                                                 <constraint firstItem="OYP-eT-Tsm" firstAttribute="bottom" secondItem="B2N-5u-IDA" secondAttribute="bottom" constant="-1" id="jwz-Ao-fm2"/>
                                                 <constraint firstItem="B2N-5u-IDA" firstAttribute="leading" secondItem="L4S-By-HQI" secondAttribute="trailing" constant="8" id="kKD-TK-NdU"/>
@@ -210,6 +210,9 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" image="WhiteLogo" id="K24-fP-eo9">
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <segue destination="5gG-6k-Ydk" kind="modal" id="pPC-NY-DmS"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -232,6 +235,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bjt-dE-WLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="832" y="332"/>
+        </scene>
+        <!--New Tweet-->
+        <scene sceneID="MYM-rM-cMb">
+            <objects>
+                <viewController storyboardIdentifier="NewTweetViewController" id="ST8-cc-ob1" customClass="NewTweetViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i2f-lH-r9e"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mnk-Y4-bmh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="me7-xb-Dub">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="140" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1zG-VZ-79v">
+                                <rect key="frame" x="215" y="134" width="28" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4L-bP-jKZ">
+                                <rect key="frame" x="251" y="130" width="53" height="24"/>
+                                <color key="backgroundColor" red="0.33333333329999998" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Tweet">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTweet:" destination="ST8-cc-ob1" eventType="touchDown" id="7mK-vy-L0Y"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text=" What's happening?" translatesAutoresizingMaskIntoConstraints="NO" id="oxa-qp-6iw">
+                                <rect key="frame" x="0.0" y="64" width="320" height="52"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="FXY-rR-MiS"/>
+                                </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1zG-VZ-79v" firstAttribute="bottom" secondItem="F4L-bP-jKZ" secondAttribute="bottom" id="2TE-HT-8EB"/>
+                            <constraint firstItem="F4L-bP-jKZ" firstAttribute="top" secondItem="oxa-qp-6iw" secondAttribute="bottom" constant="14" id="7JN-uG-Pkg"/>
+                            <constraint firstItem="oxa-qp-6iw" firstAttribute="leading" secondItem="me7-xb-Dub" secondAttribute="leading" id="8YU-8d-fxY"/>
+                            <constraint firstItem="1zG-VZ-79v" firstAttribute="top" secondItem="oxa-qp-6iw" secondAttribute="bottom" constant="18" id="RSc-b9-TZh"/>
+                            <constraint firstItem="F4L-bP-jKZ" firstAttribute="top" secondItem="oxa-qp-6iw" secondAttribute="bottom" constant="14" id="Tsd-2e-wm8"/>
+                            <constraint firstAttribute="trailing" secondItem="F4L-bP-jKZ" secondAttribute="trailing" constant="16" id="WD0-QK-48t"/>
+                            <constraint firstItem="F4L-bP-jKZ" firstAttribute="leading" secondItem="1zG-VZ-79v" secondAttribute="trailing" constant="8" id="dtD-du-2iS"/>
+                            <constraint firstAttribute="trailing" secondItem="oxa-qp-6iw" secondAttribute="trailing" id="lFs-EM-8nx"/>
+                            <constraint firstItem="1zG-VZ-79v" firstAttribute="leading" secondItem="me7-xb-Dub" secondAttribute="leading" constant="215" id="nv9-qS-s65"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Tweet" id="yaj-Gg-x7g">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="og8-Xn-yby">
+                            <connections>
+                                <action selector="onCancel:" destination="ST8-cc-ob1" id="tBl-Yp-0oR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="charCountLabel" destination="1zG-VZ-79v" id="2OD-ny-Deg"/>
+                        <outlet property="tweetButton" destination="F4L-bP-jKZ" id="mOA-tr-GHb"/>
+                        <outlet property="tweetTextView" destination="oxa-qp-6iw" id="VV2-Kn-dmP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xXd-RA-Owc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1636" y="337"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="8yT-IO-com">
@@ -380,6 +453,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TbU-Pq-iqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="832" y="996"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="g7S-ff-qYH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5gG-6k-Ydk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bmy-qz-OAK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ST8-cc-ob1" kind="relationship" relationship="rootViewController" id="vmc-gV-MOs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bef-8M-RRV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="337"/>
         </scene>
     </scenes>
     <resources>

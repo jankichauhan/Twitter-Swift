@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,NewTweetViewControllerDelegate {
 
     var tweets: [Tweet]!
     @IBOutlet weak var tableView: UITableView!
@@ -55,6 +55,9 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         }
     }
 
+    func newTweetViewController(newTweetViewController: NewTweetViewController, didUpdateTweet newTweet: Tweet) {
+        addNewTweet(newTweet)
+    }
 
     // MARK: - Navigation
 
@@ -62,16 +65,33 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let navigationController = segue.destinationViewController as! UINavigationController
-
-        let detailViewController = navigationController.topViewController as! DetailViewController
         
-        var indexPath: AnyObject!
-        indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+        if navigationController.topViewController is DetailViewController {
+            
+            let detailViewController = navigationController.topViewController as! DetailViewController
         
-        detailViewController.selectedTweet = tweets[indexPath!.row]
-        detailViewController.indexPath = indexPath! as? NSIndexPath
+            var indexPath: AnyObject!
+            indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+        
+            detailViewController.selectedTweet = tweets[indexPath!.row]
+            detailViewController.indexPath = indexPath! as? NSIndexPath
+        
+        } else if navigationController.topViewController is NewTweetViewController {
+            
+            let newTweetViewController = navigationController.topViewController as! NewTweetViewController
+            newTweetViewController.delegate = self
+        }
 
     
+    }
+    
+    func addNewTweet(newTweet: Tweet) {
+        
+        tweets.insert(newTweet, atIndex: 0)
+        tableView.reloadData()
+        
+        // go to top of table
+        self.tableView.contentOffset = CGPointMake(0, 0 - self.tableView.contentInset.top)
     }
 
 
