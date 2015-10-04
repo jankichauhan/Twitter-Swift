@@ -14,20 +14,24 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var logoutBtn: UIButton!
     
+    var refreshControl: UIRefreshControl?
+    var tableFooterView: UIView!
+    var loadingView: UIActivityIndicatorView!
+    var notificationLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.estimatedRowHeight = 228
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
         
-        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
-            
-            self.tweets = tweets
-            self.tableView.reloadData()
-        })
+        addTableFooterView()
+        loadData()
+        pullToRefresh()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +42,44 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
+    
+    func loadData() {
         
+        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets!
+            self.tableView.reloadData()
+        })
+        
+        refreshControl?.endRefreshing()
+    }
+    
+    func pullToRefresh() {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl!.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl!)
+    }
+    
+    func addTableFooterView() {
+        
+        tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.superview!.frame), height: 50))
+        println("width: \(tableFooterView.frame.width)")
+        loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        loadingView.startAnimating()
+        loadingView.center = tableFooterView.center
+        tableFooterView.addSubview(loadingView)
+        
+        notificationLabel = UILabel(frame: CGRect(x: 0, y: 0, width: CGRectGetWidth(tableView.superview!.frame), height: 50))
+        notificationLabel.text = "No more tweets"
+        notificationLabel.textAlignment = NSTextAlignment.Center
+        notificationLabel.hidden = true
+        tableFooterView.addSubview(notificationLabel)
+        
+        tableView.tableFooterView = tableFooterView
+    }
+    
+    // MARK: Table view
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetViewCell", forIndexPath: indexPath) as! TweetViewCell

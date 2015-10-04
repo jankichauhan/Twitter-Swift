@@ -48,7 +48,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
      
         GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             
-            // println(" user timeline \(response)")
+             //println(" user timeline \(response)")
             var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
             completion(tweets: tweets, error: nil)
             

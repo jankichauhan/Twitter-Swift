@@ -21,6 +21,7 @@ class TweetViewCell: UITableViewCell {
     @IBOutlet weak var favImageView: UIImageView!
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var favLabel: UILabel!
+    @IBOutlet weak var contentImageView: UIImageView!
     
     var tweet: Tweet!{
         didSet{
@@ -60,6 +61,13 @@ class TweetViewCell: UITableViewCell {
                 } else {
                     favLabel.text = ""
                 }
+            }
+
+            if tweet.mediaURL != nil {
+                contentImageView.setImageWithURL(tweet.mediaURL)
+            }
+            else {
+                contentImageView.hidden = true
             }
         }
     }

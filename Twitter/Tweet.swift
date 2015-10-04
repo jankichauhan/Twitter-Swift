@@ -18,6 +18,10 @@ class Tweet: NSObject {
     var favCount: Int?
     var isRetweeted = false
     var isFavorited = false
+    var images = [NSURL]()
+    var mediaURL: NSURL?
+    var displayUrl: String?
+
     
     init(dictionary: NSDictionary){
         
@@ -34,6 +38,37 @@ class Tweet: NSObject {
         
         isRetweeted = (dictionary["retweeted"] as? Bool!)!
         isFavorited = (dictionary["favorited"] as? Bool!)!
+        
+        var url = ""
+        if let media = dictionary.valueForKeyPath("extended_entities.media") as? [NSDictionary] {
+            for image in media {
+                if let urlString = image["media_url"] as? String {
+                    images.append(NSURL(string: urlString)!)
+                    mediaURL = NSURL(string: urlString)
+                }
+                url = (image["url"] as? String)!
+            }
+        }
+        
+        if !url.isEmpty {
+            text = text?.replace(url, withString: "")
+            text = text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+        }
+        
+        var tempUrl = ""
+        if let linkUrls = dictionary.valueForKeyPath("entities.urls") as? [NSDictionary] {
+            for link in linkUrls {
+                tempUrl = (link["url"] as! String)
+                if let dUrl = link["display_url"] as? String {
+                    displayUrl = link["display_url"] as? String
+                    if(!tempUrl.isEmpty){
+                        text = text?.replace(tempUrl, withString: displayUrl!)
+                        text = text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                    }
+                }
+            }
+        }
         
     }
 
