@@ -16,32 +16,20 @@ class TweetViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     
-    @IBOutlet weak var replyImageView: UIImageView!
-    @IBOutlet weak var retweetImageView: UIImageView!
-    @IBOutlet weak var favImageView: UIImageView!
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var favLabel: UILabel!
     @IBOutlet weak var contentImageView: UIImageView!
+    
+    @IBOutlet weak var favButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var replyButton: UIButton!
     
     var tweet: Tweet!{
         didSet{
             
             let name = tweet.user?.name
             let screenName = tweet.user?.screenName
-            
-//            var myMutableString = NSMutableAttributedString()
-//            myMutableString = NSMutableAttributedString(
-//                string: screenName!,
-//                attributes: [NSFontAttributeName:UIFont(
-//                    name: "Georgia",
-//                    size: 18.0)!])
-//            myMutableString.addAttribute(NSForegroundColorAttributeName,
-//                value: UIColor.grayColor(),
-//                range: NSRange(
-//                    location:0,
-//                    length:myMutableString.length))
-//            let cScreenName = myMutableString.string
-//            
+          
             profileImageView.setImageWithURL(tweet.user?.profileUrl)
             nameLabel.text = tweet.user?.name
             screenNameLabel.text = "@"+screenName!
@@ -69,6 +57,20 @@ class TweetViewCell: UITableViewCell {
             else {
                 contentImageView.hidden = true
             }
+            
+            if tweet.isRetweeted {
+                retweetButton.setImage(UIImage(named: "RetweetOn"), forState: .Normal)
+            } else {
+                retweetButton.setImage(UIImage(named: "Retweet"), forState: .Normal)
+            }
+            
+            if tweet.isFavorited {
+                favButton.setImage(UIImage(named: "FavoriteOn"), forState: .Normal)
+            } else {
+                favButton.setImage(UIImage(named: "Favorite"), forState: .Normal)
+            }
+            
+
         }
     }
     
@@ -83,7 +85,78 @@ class TweetViewCell: UITableViewCell {
         tweetTextLabel.preferredMaxLayoutWidth = UIScreen.mainScreen().bounds.width - 88
         
     }
+    @IBAction func onFavButton(sender: AnyObject) {
+        
+        if let selectedTweetCell = sender.superview?!.superview as? TweetViewCell {
+            var selectedTweet = selectedTweetCell.tweet
+            
+            if selectedTweet.isFavorited {
+                TwitterClient.sharedInstance.unfavoriteTweet(selectedTweet.id!, completion: { (response, error) -> () in
+                    if response != nil {
+                        selectedTweet.isFavorited = false
+                        var favCount = selectedTweet.favCount! - 1
+                        selectedTweet.favCount = favCount
+                        if favCount != 0 {
+                            self.favLabel.text = "\(favCount)"
+                        } else {
+                            self.favLabel.text = ""
+                        }
+                        
+                        self.favButton.setImage(UIImage(named: "Favorite"), forState: .Normal)
+                    }
+                })
+            } else {
+                TwitterClient.sharedInstance.favoriteTweet(selectedTweet.id!, completion: { (response, error) -> () in
+                    if response != nil {
+                        selectedTweet.isFavorited = true
+                        var favCount = selectedTweet.favCount! + 1
+                        selectedTweet.favCount = favCount
+                        self.favLabel.text = "\(favCount)"
+                        self.favButton.setImage(UIImage(named: "FavoriteOn"), forState: .Normal)
+                    }
+                })
+            }
+        }
+    }
 
+    @IBAction func OnRetweetButton(sender: AnyObject) {
+        
+        if let selectedTweetCell = sender.superview?!.superview as? TweetViewCell {
+            var selectedTweet = selectedTweetCell.tweet
+           
+            if selectedTweet.isRetweeted {
+                TwitterClient.sharedInstance.getRetweetedId(selectedTweet.id!, completion: { (retweetedId, error) -> () in
+                    if let myRetweetId = retweetedId {
+                        TwitterClient.sharedInstance.unretweet(myRetweetId, completion: { (response, error) -> () in
+                            if response != nil {
+                                selectedTweet.isRetweeted = false
+                                var retweetCount = selectedTweet.retweetCount! - 1
+                                selectedTweet.retweetCount = retweetCount
+                                if retweetCount != 0 {
+                                    self.retweetLabel.text = "\(retweetCount)"
+                                } else {
+                                    self.retweetLabel.text = ""
+                                }
+                                
+                                self.retweetButton.setImage(UIImage(named: "Retweet"), forState: .Normal)
+                            }
+                        })
+                    }
+                })
+            } else {
+                TwitterClient.sharedInstance.retweet(selectedTweet.id!, completion: { (response, error) -> () in
+                    if response != nil {
+                        selectedTweet.isRetweeted = true
+                        var retweetCount = selectedTweet.retweetCount! + 1
+                        selectedTweet.retweetCount = retweetCount
+                        self.retweetLabel.text = "\(retweetCount)"
+                        self.retweetButton.setImage(UIImage(named: "RetweetOn"), forState: .Normal)
+                    }
+                })
+            }
+        }
+
+    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
