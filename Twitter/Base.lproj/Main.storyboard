@@ -286,7 +286,7 @@
                                     <action selector="onTweet:" destination="ST8-cc-ob1" eventType="touchDown" id="7mK-vy-L0Y"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text=" What's happening?" translatesAutoresizingMaskIntoConstraints="NO" id="oxa-qp-6iw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="What's happening?" translatesAutoresizingMaskIntoConstraints="NO" id="oxa-qp-6iw">
                                 <rect key="frame" x="0.0" y="64" width="320" height="52"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
