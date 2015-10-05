@@ -44,9 +44,19 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         
     }
     
-    func homeTimeLineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+    func homeTimeLineWithParams(count: Int?, maxId: NSNumber?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
      
-        GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        var params = [String : AnyObject]()
+        
+        if count != nil {
+            params["count"] = count!
+        }
+        
+        if maxId != nil {
+            params["max_id"] = maxId!
+        }
+        
+        GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             
              //println(" user timeline \(response)")
             var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])

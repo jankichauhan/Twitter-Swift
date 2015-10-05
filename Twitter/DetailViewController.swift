@@ -21,6 +21,10 @@ class DetailViewController: UIViewController {
     var selectedTweet: Tweet?
     var indexPath: NSIndexPath?
     
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,6 +68,73 @@ class DetailViewController: UIViewController {
 
     }
 
+    @IBAction func onRetweetButton(sender: AnyObject) {
+        
+        if selectedTweet!.isRetweeted {
+            TwitterClient.sharedInstance.getRetweetedId(selectedTweet!.id!, completion: { (retweetedId, error) -> () in
+                if let myRetweetId = retweetedId {
+                    TwitterClient.sharedInstance.unretweet(myRetweetId, completion: { (response, error) -> () in
+                        if response != nil {
+                            self.selectedTweet!.isRetweeted = false
+                            var retweetCount = self.selectedTweet!.retweetCount! - 1
+                            self.selectedTweet!.retweetCount = retweetCount
+                            if retweetCount != 0 {
+                                self.retweetLabel.text = "\(retweetCount) Retweets"
+                            } else {
+                                self.retweetLabel.text = "0 Retweets"
+                            }
+                            
+                            self.retweetButton.setImage(UIImage(named: "Retweet"), forState: .Normal)
+                        }
+                    })
+                }
+            })
+        } else {
+            TwitterClient.sharedInstance.retweet(selectedTweet!.id!, completion: { (response, error) -> () in
+                if response != nil {
+                    self.selectedTweet!.isRetweeted = true
+                    var retweetCount = self.selectedTweet!.retweetCount! + 1
+                    self.selectedTweet!.retweetCount = retweetCount
+                    self.retweetLabel.text = "\(retweetCount) Retweets"
+                    self.retweetButton.setImage(UIImage(named: "RetweetOn"), forState: .Normal)
+                }
+            })
+        }
+    
+    }
+
+    @IBAction func onFavButton(sender: AnyObject) {
+        
+        if selectedTweet!.isFavorited {
+            TwitterClient.sharedInstance.unfavoriteTweet(selectedTweet!.id!, completion: { (response, error) -> () in
+                if response != nil {
+                    self.selectedTweet!.isFavorited = false
+                    var favCount = self.selectedTweet!.favCount! - 1
+                    self.selectedTweet!.favCount = favCount
+                    if favCount != 0 {
+                        self.favLabel.text = "\(favCount) Favorites"
+                    } else {
+                        self.favLabel.text = "0 Favorites"
+                    }
+                    
+                    self.favButton.setImage(UIImage(named: "Favorite"), forState: .Normal)
+                }
+            })
+        } else {
+            TwitterClient.sharedInstance.favoriteTweet(selectedTweet!.id!, completion: { (response, error) -> () in
+                if response != nil {
+                    self.selectedTweet!.isFavorited = true
+                    var favCount = self.selectedTweet!.favCount! + 1
+                    self.selectedTweet!.favCount = favCount
+                    self.favLabel.text = "\(favCount) Favorites"
+                    self.favButton.setImage(UIImage(named: "FavoriteOn"), forState: .Normal)
+                }
+            })
+        }
+    }
+
+    
+}
     /*
     // MARK: - Navigation
 
@@ -74,4 +145,3 @@ class DetailViewController: UIViewController {
     }
     */
 
-}

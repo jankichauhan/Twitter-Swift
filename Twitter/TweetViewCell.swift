@@ -51,12 +51,12 @@ class TweetViewCell: UITableViewCell {
                 }
             }
 
-            if tweet.mediaURL != nil {
-                contentImageView.setImageWithURL(tweet.mediaURL)
-            }
-            else {
-                contentImageView.hidden = true
-            }
+//            if tweet.mediaURL != nil {
+//                contentImageView.setImageWithURL(tweet.mediaURL)
+//            }
+//            else {
+//                contentImageView.
+//            }
             
             if tweet.isRetweeted {
                 retweetButton.setImage(UIImage(named: "RetweetOn"), forState: .Normal)

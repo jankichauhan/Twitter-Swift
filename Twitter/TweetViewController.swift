@@ -45,7 +45,7 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func loadData() {
         
-        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, completion: { (tweets, error) -> () in
+        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, maxId: nil, completion: { (tweets, error) -> () in
             self.tweets = tweets!
             self.tableView.reloadData()
         })
@@ -85,6 +85,19 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetViewCell", forIndexPath: indexPath) as! TweetViewCell
         cell.tweet = tweets[indexPath.row]
         
+        cell.tweetTextLabel.sizeToFit()
+        
+        if indexPath.row == tweets.count - 1 {
+            
+            loadingView.startAnimating()
+            notificationLabel.hidden = true
+            getMoreData()
+            
+        } else {
+            loadingView.stopAnimating()
+        }
+
+        
         return cell
     }
     
@@ -99,6 +112,24 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func newTweetViewController(newTweetViewController: NewTweetViewController, didUpdateTweet newTweet: Tweet) {
         addNewTweet(newTweet)
     }
+    
+    func getMoreData() {
+        
+        if tweets.count > 0 {
+            var maxId = ((tweets[tweets.count - 1].id)!.longLongValue - NSNumber(integer: 1).longLongValue) as NSNumber
+            
+            TwitterClient.sharedInstance.homeTimeLineWithParams(20, maxId: maxId, completion: { (tweets, error) -> () in
+                var newTweets = tweets!
+                for tweet in newTweets {
+                    self.tweets.append(tweet)
+                }
+                self.tableView.reloadData()
+                
+                //println(error)
+            })
+        }
+    }
+
 
     // MARK: - Navigation
 
