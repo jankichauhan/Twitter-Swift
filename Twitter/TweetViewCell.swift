@@ -18,15 +18,20 @@ class TweetViewCell: UITableViewCell {
     
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var favLabel: UILabel!
-    @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet weak var imagesView: UIView!
     
     @IBOutlet weak var favButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var replyButton: UIButton!
     
+    @IBOutlet weak var imagesViewHeightConstraint: NSLayoutConstraint!
+
+    
     var tweet: Tweet!{
         didSet{
             
+            let imagesViewConstraints = [imagesViewHeightConstraint]
+
             let name = tweet.user?.name
             let screenName = tweet.user?.screenName
           
@@ -51,12 +56,17 @@ class TweetViewCell: UITableViewCell {
                 }
             }
 
-//            if tweet.mediaURL != nil {
-//                contentImageView.setImageWithURL(tweet.mediaURL)
-//            }
-//            else {
-//                contentImageView.
-//            }
+            if tweet.mediaURL != nil {
+               // contentImageView.setImageWithURL(tweet.mediaURL)
+                var imagesViewTmp = NSBundle.mainBundle().loadNibNamed("ImagesView1", owner: self, options: nil).first! as! ImagesView1
+                imagesViewTmp.images = tweet.images
+                imagesViewTmp.imageView.setImageWithURL(tweet.mediaURL)
+                imagesView.addSubview(imagesViewTmp)
+                addConstraintImagesView(imagesViewTmp, imagesView: imagesView)
+            }
+            else {
+                imagesViewHeightConstraint.constant = 0
+            }
             
             if tweet.isRetweeted {
                 retweetButton.setImage(UIImage(named: "RetweetOn"), forState: .Normal)
@@ -85,6 +95,15 @@ class TweetViewCell: UITableViewCell {
         tweetTextLabel.preferredMaxLayoutWidth = UIScreen.mainScreen().bounds.width - 88
         
     }
+    
+    override func prepareForReuse() {
+        
+//        topIconHeightConstraint.constant = 12
+//        topIconWidthConstraint.constant = 12
+//        topLabelHeightConstraint.constant = 14.5
+        imagesViewHeightConstraint.constant = 115
+    }
+    
     @IBAction func onFavButton(sender: AnyObject) {
         
         if let selectedTweetCell = sender.superview?!.superview as? TweetViewCell {
@@ -162,5 +181,51 @@ class TweetViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func addConstraintImagesView(tmpView: UIView, imagesView: UIView) {
+        
+        tmpView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imagesView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        var myConstraintTop =
+        NSLayoutConstraint(item: tmpView,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: imagesView,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0,
+            constant: 0)
+        
+        var myConstraintBottom =
+        NSLayoutConstraint(item: tmpView,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: imagesView,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: 0)
+        
+        var myConstraintTrailing =
+        NSLayoutConstraint(item: tmpView,
+            attribute: NSLayoutAttribute.Trailing,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: imagesView,
+            attribute: NSLayoutAttribute.Trailing,
+            multiplier: 1.0,
+            constant: 0)
+        
+        var myConstraintLeading =
+        NSLayoutConstraint(item: tmpView,
+            attribute: NSLayoutAttribute.Leading,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: imagesView,
+            attribute: NSLayoutAttribute.Leading,
+            multiplier: 1.0,
+            constant: 0)
+        
+        imagesView.addConstraints([myConstraintBottom, myConstraintLeading, myConstraintTop, myConstraintTrailing])
+        imagesView.updateConstraints()
+    }
+
 
 }

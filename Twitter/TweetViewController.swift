@@ -45,7 +45,7 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func loadData() {
         
-        TwitterClient.sharedInstance.homeTimeLineWithParams(nil, maxId: nil, completion: { (tweets, error) -> () in
+        TwitterClient.sharedInstance.homeTimeLineWithParams(20, maxId: nil, completion: { (tweets, error) -> () in
             self.tweets = tweets!
             self.tableView.reloadData()
         })
@@ -152,6 +152,13 @@ class TweetViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
             let newTweetViewController = navigationController.topViewController as! NewTweetViewController
             newTweetViewController.delegate = self
+            
+            if segue.identifier == "replySegue" {
+                if let chosenTweetCell = sender!.superview!!.superview as? TweetViewCell {
+                    var chosenTweet = chosenTweetCell.tweet
+                    newTweetViewController.replyTweet = chosenTweet
+                }
+            }
         }
 
     

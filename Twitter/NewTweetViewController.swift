@@ -18,6 +18,10 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var charCountLabel: UILabel!
     @IBOutlet weak var tweetButton: UIButton!
 
+    @IBOutlet weak var replyImageView: UIImageView!
+    @IBOutlet weak var inReplyLabel: UILabel!
+ //   @IBOutlet weak var profileImageView: UIImageView!
+    
     var limit = 140
     
     var replyTweet: Tweet?
@@ -33,6 +37,25 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
         tweetButton.alpha = 0.7
         tweetButton.enabled = false
         
+      //  profileImageView.setImageWithURL(_currentUser?.profileUrl)
+        
+        if replyTweet != nil {
+            tweetTextView.textColor = UIColor.blackColor()
+            
+            if let replyName = replyTweet?.user?.name {
+                inReplyLabel.text = "In reply to \(replyName)"
+                self.navigationItem.title = "Reply Tweet"
+            }
+            if let replyScreeName = replyTweet?.user?.screenName {
+                tweetTextView.text = "@\(replyScreeName) "
+                limit = 140 - count(tweetTextView.text.utf8)
+                charCountLabel.text = "\(limit)"
+            }
+        } else {
+            hideReply()
+        }
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,17 +65,30 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func onTweet(sender: AnyObject) {
   
-        TwitterClient.sharedInstance.updateTweet(tweetTextView.text, completion: { (tweet, error) -> () in
-            
-            var newTweet = tweet
-            
-            if let newTweet = newTweet {
-                println("get new tweet")
-                self.delegate?.newTweetViewController?(self, didUpdateTweet: newTweet)
+        if let replyTweet = replyTweet {
+            TwitterClient.sharedInstance.replyTweet(tweetTextView.text, originalId: replyTweet.id!, completion: { (tweet, error) -> () in
+                var newTweet = tweet
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-        })
+                if let newTweet = newTweet {
+                    println("new reply")
+                    self.delegate?.newTweetViewController?(self, didUpdateTweet: newTweet)
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            })
+        } else {
+            TwitterClient.sharedInstance.updateTweet(tweetTextView.text, completion: { (tweet, error) -> () in
+            
+                var newTweet = tweet
+            
+                if let newTweet = newTweet {
+                    println("get new tweet")
+                    self.delegate?.newTweetViewController?(self, didUpdateTweet: newTweet)
+                
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            })
+        }
     }
 
     @IBAction func onCancel(sender: AnyObject) {
@@ -105,6 +141,50 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
         })
     }
 
+    func hideReply() {
+        
+        replyImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        var myConstraintWidthIcon =
+        NSLayoutConstraint(item: replyImageView,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.Width,
+            multiplier: 1.0,
+            constant: 0)
+        
+        var myConstraintHeightIcon =
+        NSLayoutConstraint(item: replyImageView,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.Height,
+            multiplier: 1.0,
+            constant: 0)
+        replyImageView.addConstraints([myConstraintHeightIcon, myConstraintWidthIcon])
+        
+        inReplyLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        var myConstraintWidthLabel =
+        NSLayoutConstraint(item: inReplyLabel,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.Width,
+            multiplier: 1.0,
+            constant: 0)
+        
+        var myConstraintHeightLabel =
+        NSLayoutConstraint(item: inReplyLabel,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.Height,
+            multiplier: 1.0,
+            constant: 0)
+        inReplyLabel.addConstraints([myConstraintHeightLabel, myConstraintWidthLabel])
+        
+    }
+    
     /*
     // MARK: - Navigation
 

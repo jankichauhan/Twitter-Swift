@@ -196,4 +196,22 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
                 completion(response: nil, error: error)
         })
     }
+    
+    func replyTweet(text: String, originalId: NSNumber, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        
+        var params = [String : AnyObject]()
+        params["status"] = text
+        params["in_reply_to_status_id"] = originalId
+        
+        POST("1.1/statuses/update.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            
+            var newTweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: newTweet, error: nil)
+            
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error updating new tweet")
+                completion(tweet: nil, error: error)
+        })
+    }
+
 }
